@@ -3,14 +3,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Almacen {
-    private LinkedList<Producto> listaProductos;
-    private Producto objetoProducto;
+    private final LinkedList<Producto> listaProductos;
 
-
-    public Almacen(LinkedList<Producto> listaProductos, Producto objetoProducto) {
-        this.listaProductos = listaProductos;
-        this.objetoProducto = objetoProducto;
+    public Almacen() {
+        this.listaProductos = new LinkedList<>();
     }
+
 
     public void agregarProducto(Producto producto) {
         listaProductos.add(producto);
@@ -20,21 +18,6 @@ public class Almacen {
         List<Producto> listaOrdenada = new LinkedList<>(this.listaProductos);
         listaOrdenada.sort(null);
         return listaOrdenada;
-    }
-
-    public void visualizarListaProductos() {
-        if (listaProductos.isEmpty()) {
-            System.out.println("El almacén no tiene productos.");
-            return;
-        }
-        System.out.println("========== PRODUCTOS ==========");
-        System.out.printf("%-4s %-20s %11s%n", "#", "Nombre", "Precio");
-        System.out.println("-------------------------------");
-        int i = 1;
-        for (Producto p : listaProductos) {
-            System.out.printf("%-4d %s%n", i++, p);
-        }
-        System.out.println("===============================");
     }
 
     public Producto buscarProducto(Producto objetivo) {
@@ -56,5 +39,28 @@ public class Almacen {
             }
         }
         return null;
+    }
+
+    public void visualizarListaProductos() {
+        imprimirLista(listaProductos);
+    }
+
+    public void visualizarListaOrdenada() {
+        imprimirLista(ordenarProductos());
+    }
+
+    private void imprimirLista(List<Producto> lista) {
+        if (lista.isEmpty()) {
+            System.out.println("El almacén no tiene productos.");
+            return;
+        }
+        System.out.println("========== PRODUCTOS ==========");
+        System.out.printf("%-4s %-20s %11s%n", "#", "Nombre", "Precio");
+        System.out.println("-------------------------------");
+        int i = 1;
+        for (Producto p : lista) {
+            System.out.printf("%-4d %s%n", i++, p);
+        }
+        System.out.println("===============================");
     }
 }
